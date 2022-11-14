@@ -1,0 +1,32 @@
+/*------Site close due to higher number of orders---------*/
+
+function get_orders_count_from_status( $status ){
+    global $wpdb;
+    $status = 'wc-' . str_replace('wc-', '', $status);
+    return $wpdb->get_var("
+        SELECT count(ID)  FROM {$wpdb->prefix}posts WHERE post_status LIKE '$status' AND `post_type` LIKE 'shop_order'
+    ");
+}
+
+// Trigger Close Mode
+add_action ('init', 'Close_site_mode');
+ 
+// Disable Cart, Checkout, Add Cart
+function Close_site_mode() {
+	$processing_count = get_orders_count_from_status( "processing" );
+	if($processing_count > 50) // order count set
+	{	
+   remove_action( 'woocommerce_after_shop_loop_item', 'woocommerce_template_loop_add_to_cart', 10 );
+   remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_add_to_cart', 30 );
+   remove_action( 'woocommerce_proceed_to_checkout', 'woocommerce_button_proceed_to_checkout', 20 );
+   remove_action( 'woocommerce_checkout_order_review', 'woocommerce_checkout_payment', 20 );
+   add_action( 'woocommerce_before_main_content', 'show_close_notice', 5 );
+   add_action( 'woocommerce_before_cart', 'show_close_notice', 5 );
+   add_action( 'woocommerce_before_checkout_form', 'show_close_notice', 5 );
+	}
+}
+
+// Show Close Notice 
+function show_close_notice() {
+        wc_print_notice( 'Your close message here', 'error');
+} 
