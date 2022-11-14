@@ -1,0 +1,8 @@
+/* ------------------- Payment & other text Display on checkout Page -------------------------------------- */
+
+add_action( 'woocommerce_review_order_before_payment', 'wc_custom_message_below_checkout_button' );
+
+function wc_custom_message_below_checkout_button() {
+   echo '<p class="custom_head">Text</p>';
+   echo '<p class="custom_description">Description here</p>';
+}
