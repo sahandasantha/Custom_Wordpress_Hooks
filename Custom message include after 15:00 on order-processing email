@@ -1,0 +1,10 @@
+/**----Message to Customer Processing Order Email-----*/
+  
+add_action( 'woocommerce_email_before_order_table', 'add_3pm_note_email', 20, 4 );
+function add_3pm_note_email( $order, $sent_to_admin, $plain_text, $email ) {
+	date_default_timezone_set( 'Asia/Colombo' ); // Please add your TimeZone
+   	if ( $email->id == 'customer_processing_order' && ( date( 'G' ) >= 15 )) // 15 = 15:00
+   	{
+	    echo '<p class="email-custom-p"><strong>Note :</strong> You have placed your order after 3pm. your order will be processed on the next working day. Thank you!</p>';
+	}
+}
