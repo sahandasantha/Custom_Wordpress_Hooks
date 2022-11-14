@@ -1,0 +1,18 @@
+/*----product out of stock and offer labels------*/
+
+add_action( 'woocommerce_before_shop_loop_item_title', 'offer_and_product_out_label' );
+ 
+function offer_and_product_out_label() {
+    global $product;
+    if ( !$product->is_in_stock() ) {
+        echo '<span class="soldout">' . __( 'SOLD OUT', 'woocommerce' ) . '</span>';
+    }
+
+    if ( $product->is_on_sale() )
+        {
+        $min_regular_price = $product->get_variation_regular_price( 'min' );
+        $min_sale_price = $product->get_variation_sale_price( 'min' );
+        $offer = (($min_regular_price - $min_sale_price) / $min_regular_price) * 100;
+        echo '<span class="offer">' . __( number_format($offer, 0), 'woocommerce' ) . '%<br>off</span>';
+    }
+} 
