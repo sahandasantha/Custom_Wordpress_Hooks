@@ -1,0 +1,4 @@
+// Rename the "Have a Coupon?" message on the checkout page
+function bt_rename_coupon_message_on_checkout() {
+	return 'Have a coupon code?' . ' ' . __( 'Click here to enter your code', 'woocommerce' ) . '';
+}
