@@ -1,8 +1,0 @@
-/**---- Rename state label-----**/
-
-add_filter('woocommerce_default_address_fields', 'rename_state_province');
-
-function rename_state_province($fields) {
-    $fields['state']['label'] = 'Text Here';
-    return $fields;
-}
