@@ -1,0 +1,6 @@
+/*-------Change a currency symbol-------*/
+
+add_filter( 'woocommerce_currency_symbol', 'my_custom_currency_symbol' );
+function my_custom_currency_symbol( $symbol ) {
+    return 'Rs.';
+}
