@@ -1,0 +1,18 @@
+/* ------------------- Reorder account tabs on Acoount Page -------------------------------------- */
+
+function my_custom_account_menu_items( $items ) {
+    $items = array(
+        'dashboard'         => __( 'Dashboard', 'woocommerce' ),
+        'edit-account'      => __( 'Account Details', 'woocommerce' ),
+        'orders'            => __( 'Past Orders', 'woocommerce' ),
+        'downloads'       => __( 'Downloads', 'woocommerce' ),
+        'edit-address'    => __( 'Addresses', 'woocommerce' ),
+        'payment-methods' => __( 'Payment Methods', 'woocommerce' ),
+        'customer-logout'   => __( 'Logout', 'woocommerce' ),
+    );
+    return $items;
+}
+
+add_filter( 'woocommerce_account_menu_items', 'my_custom_account_menu_items' );
+
+// Changing the order of the array-element of the $items, can reorder the menu items.
